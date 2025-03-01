@@ -63,7 +63,7 @@
       padding: 15px;
       color: #fff;
     }
-    /* (El contenido interno se oculta en la vista normal, pues se usará el modal) */
+    /* El contenido interno se mantiene en el HTML pero no se muestra (se usará en el modal) */
     .panel-content {
       display: none;
       padding: 15px;
@@ -106,7 +106,7 @@
     .accordion-content td {
       background-color: #f1f1f1;
     }
-    /* Estilos para filas interactivas de la tabla */
+    /* Filas interactivas en la tabla */
     #trastornosTable tbody tr {
       cursor: pointer;
       transition: opacity 0.3s ease;
@@ -165,7 +165,7 @@
     footer img {
       max-width: 150px;
     }
-    /* Modal para paneles: Se muestra sobre toda la página */
+    /* Modal para mostrar el contenido de los paneles en pantalla completa */
     #panelModal {
       display: none;
       position: fixed;
@@ -242,7 +242,7 @@
       color: #bbb;
       text-decoration: none;
     }
-    /* Tabla-Acordeón: se agrega un icono interactivo en la primera celda */
+    /* Tabla-Acordeón: icono interactivo en la primera celda */
     .accordion-indicator {
       font-weight: bold;
     }
@@ -454,11 +454,9 @@
     // Actualizar la fecha en el pie de página
     document.getElementById('fecha').innerText = 'Fecha: ' + new Date().toLocaleDateString('es-ES');
 
-    // Abrir el contenido de cada panel en un modal (para que se abra sobre la página en vez de expandirse)
+    // Abrir el contenido de cada panel en un modal
     document.querySelectorAll('.panel').forEach(function(panel) {
-      panel.addEventListener('click', function(e) {
-        // Evitar interferencias con otros clics
-        if(e.target.closest('.accordion-indicator')) return;
+      panel.addEventListener('click', function() {
         var content = panel.querySelector('.panel-content');
         if(content) {
           var modal = document.getElementById('panelModal');
@@ -479,7 +477,7 @@
       }
     });
     
-    // Tabla-Acordeón: Asignar icono interactivo y efecto al pasar el ratón
+    // Tabla-Acordeón: Agregar icono interactivo a cada fila y su comportamiento
     document.addEventListener('DOMContentLoaded', function() {
       var tbody = document.querySelector('#trastornosTable tbody');
       tbody.querySelectorAll('tr:not(.accordion-content)').forEach(function(row) {
@@ -492,7 +490,6 @@
         row.title = 'Clic para ver detalles';
       });
       
-      // Manejar la expansión/contracción de filas en la tabla
       tbody.addEventListener('click', function(e) {
         var target = e.target;
         while (target && target.nodeName !== 'TR') {
@@ -527,7 +524,7 @@
       });
     });
     
-    // Modal para imágenes: Abrir imagen en pantalla completa al hacer clic
+    // Modal para imágenes: Abrir imagen en pantalla completa
     document.addEventListener('click', function(e) {
       if (e.target && e.target.classList.contains('disorder-image')) {
         var modal = document.getElementById('imageModal');
