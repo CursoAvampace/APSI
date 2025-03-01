@@ -64,7 +64,7 @@
       color: #fff;
     }
     .panel-content {
-      display: none;
+      display: none; /* Se oculta en el panel ya que se mostrará en modal */
       padding: 15px;
       text-align: left;
     }
@@ -81,7 +81,7 @@
     #panel1 .panel-header { background-color: #FFB6C1; }
     #panel2 .panel-header { background-color: #ADD8E6; }
     #panel3 .panel-header { background-color: #98FB98; }
-    /* Tabla acordeón */
+    /* Tabla Acordeón */
     .tabla-interactiva {
       margin: 20px auto;
       width: 90%;
@@ -105,7 +105,7 @@
     .accordion-content td {
       background-color: #f1f1f1;
     }
-    /* Indicador y cursor para filas interactivas */
+    /* Estilos para filas interactivas */
     #trastornosTable tbody tr {
       cursor: pointer;
       transition: opacity 0.3s ease;
@@ -113,23 +113,12 @@
     #trastornosTable tbody tr:hover {
       opacity: 0.85;
     }
-    /* Video container */
-    .video-container {
+    /* Video Section */
+    .video-section {
       margin: 20px auto;
       width: 90%;
       max-width: 560px;
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
     }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    /* Título animado para el video */
     .video-title {
       font-size: 2em;
       font-weight: bold;
@@ -149,6 +138,19 @@
       50% { transform: translateX(10px); }
       100% { transform: translateX(0); }
     }
+    /* Contenedor responsivo del video */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
     footer {
       margin-top: 20px;
       padding: 10px;
@@ -162,7 +164,48 @@
     footer img {
       max-width: 150px;
     }
-    /* Estilos para el modal (vista de imagen en pantalla completa) */
+    /* Modal para visualizar paneles a pantalla completa */
+    #panelModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    #panelModal .modal-panel-content {
+      background: linear-gradient(135deg, #FFB6C1, #ADD8E6, #CCFF90);
+      margin: 5% auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 10px;
+      color: #333;
+      text-align: left;
+      animation: slideDown 0.5s;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    #panelModal .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #panelModal .close:hover,
+    #panelModal .close:focus {
+      color: #bbb;
+      text-decoration: none;
+    }
+    /* Modal para visualizar imágenes en pantalla completa */
     .modal {
       display: none;
       position: fixed;
@@ -197,7 +240,6 @@
     .close:hover, .close:focus {
       color: #bbb;
       text-decoration: none;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -217,7 +259,7 @@
   <!-- Tríptico Interactivo -->
   <section class="triptico">
     <!-- Panel 0-1 Año -->
-    <div class="panel" id="panel1">
+    <div class="panel" id="panel1" data-panel="panel1">
       <div class="panel-header">
         <h2>0-1 Año - ¡Bienvenidas familias de bebés!</h2>
       </div>
@@ -257,7 +299,7 @@
     </div>
     
     <!-- Panel 1-2 Años -->
-    <div class="panel" id="panel2">
+    <div class="panel" id="panel2" data-panel="panel2">
       <div class="panel-header">
         <h2>1-2 Años - ¡Exploradores en Acción!</h2>
       </div>
@@ -294,7 +336,7 @@
     </div>
     
     <!-- Panel 2-3 Años -->
-    <div class="panel" id="panel3">
+    <div class="panel" id="panel3" data-panel="panel3">
       <div class="panel-header">
         <h2>2-3 Años - ¡Pequeños Mayores!</h2>
       </div>
@@ -376,12 +418,13 @@
     </table>
   </section>
   
-  <!-- Video Educativo -->
-  <section class="video-container">
-    <!-- Título animado para el video -->
+  <!-- Sección del video con título animado -->
+  <section class="video-section">
     <h2 class="video-title">Hábitos de Higiene</h2>
-    <!-- Nota: Ejecuta la página desde un servidor local para evitar bloqueos en algunos navegadores -->
-    <iframe src="https://www.youtube-nocookie.com/embed/U5Ve1Qp1KWk?start=10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Video sobre Higiene Infantil"></iframe>
+    <div class="video-container">
+      <!-- Nota: Ejecuta la página desde un servidor local para evitar bloqueos en algunos navegadores -->
+      <iframe src="https://www.youtube-nocookie.com/embed/U5Ve1Qp1KWk?start=10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Video sobre Higiene Infantil"></iframe>
+    </div>
   </section>
   
   <footer>
@@ -396,25 +439,47 @@
     <img class="modal-content" id="modalImage">
   </div>
   
+  <!-- Modal para mostrar el contenido de los paneles a pantalla completa -->
+  <div id="panelModal" class="modal">
+    <span class="close" id="panelModalClose">&times;</span>
+    <div class="modal-panel-content" id="modalPanelContent"></div>
+  </div>
+  
   <script>
     // Actualizar fecha en el pie de página
     document.getElementById('fecha').innerText = 'Fecha: ' + new Date().toLocaleDateString('es-ES');
 
-    // Paneles: Al hacer clic en la imagen se muestra/oculta el contenido
-    document.querySelectorAll('.panel img').forEach(function(img) {
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var content = this.parentElement.querySelector('.panel-content');
-        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+    // Evento para abrir el contenido del panel en modal al hacer clic en cualquier parte del panel (imagen o título)
+    document.querySelectorAll('.panel').forEach(function(panel) {
+      panel.addEventListener('click', function(e) {
+        // Evitar que el clic en el contenido interno de la tabla (o modal) interfiera
+        if(e.target.closest('.accordion-indicator')) return;
+        var content = panel.querySelector('.panel-content');
+        if(content) {
+          var modal = document.getElementById('panelModal');
+          var modalContent = document.getElementById('modalPanelContent');
+          modalContent.innerHTML = content.innerHTML;
+          modal.style.display = 'block';
+        }
       });
     });
     
-    // Agregar indicador de clic en cada fila interactiva de la tabla
+    // Modal para paneles: cerrar al hacer clic en la "X" o fuera del contenido
+    document.getElementById('panelModalClose').addEventListener('click', function() {
+      document.getElementById('panelModal').style.display = 'none';
+    });
+    document.getElementById('panelModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+    
+    // Tabla-Acordeón: Agregar icono interactivo y comportamiento de expansión
     document.addEventListener('DOMContentLoaded', function() {
       var tbody = document.querySelector('#trastornosTable tbody');
       
+      // Para cada fila (excepto las ya expandidas)
       tbody.querySelectorAll('tr:not(.accordion-content)').forEach(function(row) {
-        // Agrega un indicador en la primera celda
         var firstCell = row.querySelector('td');
         var indicator = document.createElement('span');
         indicator.className = 'accordion-indicator';
@@ -424,15 +489,16 @@
         row.title = 'Clic para ver detalles';
       });
       
-      // Event delegation para el acordeón en la tabla
+      // Manejar clics en las filas
       tbody.addEventListener('click', function(e) {
         var target = e.target;
+        // Subir hasta el TR
         while (target && target.nodeName !== 'TR') {
           target = target.parentElement;
         }
         if (!target || target.classList.contains('accordion-content')) return;
         
-        // Alternar fila expandida
+        // Si ya está expandido, eliminar la fila siguiente
         if (target.nextElementSibling && target.nextElementSibling.classList.contains('accordion-content')) {
           target.nextElementSibling.remove();
           var indicator = target.querySelector('.accordion-indicator');
@@ -445,7 +511,6 @@
             newRow.className = 'accordion-content';
             var newCell = document.createElement('td');
             newCell.colSpan = 4;
-            // Se añade la clase "disorder-image" a la imagen para que sea clicable y abra el modal
             newCell.innerHTML = '<div style="display: flex; align-items: center; gap: 10px;">' +
                                 '<img class="disorder-image" src="' + data.imagen + '" alt="' + trastorno + '" style="width:100px; height:auto; border-radius:5px;">' +
                                 '<div>' +
@@ -462,12 +527,31 @@
       });
     });
     
+    // Modal para imágenes: abrir al hacer clic en imágenes de la tabla
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('disorder-image')) {
+        var modal = document.getElementById('imageModal');
+        var modalImg = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImg.src = e.target.src;
+      }
+    });
+    document.getElementById('modalClose').addEventListener('click', function() {
+      document.getElementById('imageModal').style.display = 'none';
+    });
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+    
     // Inicio automático del video al aparecer en pantalla o al pasar el ratón encima
     (function() {
-      var videoContainer = document.querySelector('.video-container');
+      var videoSection = document.querySelector('.video-section');
+      var videoContainer = videoSection.querySelector('.video-container');
       var videoIframe = videoContainer.querySelector('iframe');
       var videoStarted = false;
-
+      
       function startVideo() {
         if (!videoStarted) {
           var src = videoIframe.getAttribute('src');
@@ -478,22 +562,22 @@
           videoStarted = true;
         }
       }
-
-      videoContainer.addEventListener('mouseenter', startVideo);
-
+      
+      videoSection.addEventListener('mouseenter', startVideo);
+      
       if ('IntersectionObserver' in window) {
         var observer = new IntersectionObserver(function(entries, observer) {
           entries.forEach(function(entry) {
             if (entry.isIntersecting) {
               startVideo();
-              observer.unobserve(videoContainer);
+              observer.unobserve(videoSection);
             }
           });
         }, { threshold: 0.5 });
-        observer.observe(videoContainer);
+        observer.observe(videoSection);
       } else {
         window.addEventListener('scroll', function() {
-          var rect = videoContainer.getBoundingClientRect();
+          var rect = videoSection.getBoundingClientRect();
           if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
             startVideo();
           }
@@ -501,6 +585,7 @@
       }
     })();
     
+    // Función que retorna la información de cada trastorno
     function getDataForTrastorno(trastorno) {
       var info = {
         'Eritema del pañal': {
@@ -536,25 +621,6 @@
       };
       return info[trastorno];
     }
-    
-    // Modal: abrir y cerrar la imagen en pantalla completa
-    document.addEventListener('click', function(e) {
-      if (e.target && e.target.classList.contains('disorder-image')) {
-        var modal = document.getElementById('imageModal');
-        var modalImg = document.getElementById('modalImage');
-        modal.style.display = 'block';
-        modalImg.src = e.target.src;
-      }
-    });
-    document.getElementById('modalClose').addEventListener('click', function() {
-      document.getElementById('imageModal').style.display = 'none';
-    });
-    // Cerrar modal al hacer clic en cualquier parte del modal (excepto la imagen)
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.style.display = 'none';
-      }
-    });
   </script>
 </body>
 </html>
