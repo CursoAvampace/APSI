@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -63,8 +63,9 @@
       padding: 15px;
       color: #fff;
     }
+    /* (El contenido interno se oculta en la vista normal, pues se usará el modal) */
     .panel-content {
-      display: none; /* Se oculta en el panel ya que se mostrará en modal */
+      display: none;
       padding: 15px;
       text-align: left;
     }
@@ -105,7 +106,7 @@
     .accordion-content td {
       background-color: #f1f1f1;
     }
-    /* Estilos para filas interactivas */
+    /* Estilos para filas interactivas de la tabla */
     #trastornosTable tbody tr {
       cursor: pointer;
       transition: opacity 0.3s ease;
@@ -164,7 +165,7 @@
     footer img {
       max-width: 150px;
     }
-    /* Modal para visualizar paneles a pantalla completa */
+    /* Modal para paneles: Se muestra sobre toda la página */
     #panelModal {
       display: none;
       position: fixed;
@@ -205,7 +206,7 @@
       color: #bbb;
       text-decoration: none;
     }
-    /* Modal para visualizar imágenes en pantalla completa */
+    /* Modal para imágenes en pantalla completa */
     .modal {
       display: none;
       position: fixed;
@@ -225,8 +226,8 @@
       animation: zoom 0.6s;
     }
     @keyframes zoom {
-      from {transform: scale(0);}
-      to {transform: scale(1);}
+      from { transform: scale(0); }
+      to { transform: scale(1); }
     }
     .close {
       position: absolute;
@@ -240,6 +241,10 @@
     .close:hover, .close:focus {
       color: #bbb;
       text-decoration: none;
+    }
+    /* Tabla-Acordeón: se agrega un icono interactivo en la primera celda */
+    .accordion-indicator {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -439,20 +444,20 @@
     <img class="modal-content" id="modalImage">
   </div>
   
-  <!-- Modal para mostrar el contenido de los paneles a pantalla completa -->
+  <!-- Modal para mostrar el contenido de los paneles en pantalla completa -->
   <div id="panelModal" class="modal">
     <span class="close" id="panelModalClose">&times;</span>
     <div class="modal-panel-content" id="modalPanelContent"></div>
   </div>
   
   <script>
-    // Actualizar fecha en el pie de página
+    // Actualizar la fecha en el pie de página
     document.getElementById('fecha').innerText = 'Fecha: ' + new Date().toLocaleDateString('es-ES');
 
-    // Evento para abrir el contenido del panel en modal al hacer clic en cualquier parte del panel (imagen o título)
+    // Abrir el contenido de cada panel en un modal (para que se abra sobre la página en vez de expandirse)
     document.querySelectorAll('.panel').forEach(function(panel) {
       panel.addEventListener('click', function(e) {
-        // Evitar que el clic en el contenido interno de la tabla (o modal) interfiera
+        // Evitar interferencias con otros clics
         if(e.target.closest('.accordion-indicator')) return;
         var content = panel.querySelector('.panel-content');
         if(content) {
@@ -464,21 +469,19 @@
       });
     });
     
-    // Modal para paneles: cerrar al hacer clic en la "X" o fuera del contenido
+    // Cerrar el modal de panel al hacer clic en la "X" o fuera del contenido
     document.getElementById('panelModalClose').addEventListener('click', function() {
       document.getElementById('panelModal').style.display = 'none';
     });
     document.getElementById('panelModal').addEventListener('click', function(e) {
-      if (e.target === this) {
+      if(e.target === this) {
         this.style.display = 'none';
       }
     });
     
-    // Tabla-Acordeón: Agregar icono interactivo y comportamiento de expansión
+    // Tabla-Acordeón: Asignar icono interactivo y efecto al pasar el ratón
     document.addEventListener('DOMContentLoaded', function() {
       var tbody = document.querySelector('#trastornosTable tbody');
-      
-      // Para cada fila (excepto las ya expandidas)
       tbody.querySelectorAll('tr:not(.accordion-content)').forEach(function(row) {
         var firstCell = row.querySelector('td');
         var indicator = document.createElement('span');
@@ -489,16 +492,13 @@
         row.title = 'Clic para ver detalles';
       });
       
-      // Manejar clics en las filas
+      // Manejar la expansión/contracción de filas en la tabla
       tbody.addEventListener('click', function(e) {
         var target = e.target;
-        // Subir hasta el TR
         while (target && target.nodeName !== 'TR') {
           target = target.parentElement;
         }
         if (!target || target.classList.contains('accordion-content')) return;
-        
-        // Si ya está expandido, eliminar la fila siguiente
         if (target.nextElementSibling && target.nextElementSibling.classList.contains('accordion-content')) {
           target.nextElementSibling.remove();
           var indicator = target.querySelector('.accordion-indicator');
@@ -527,7 +527,7 @@
       });
     });
     
-    // Modal para imágenes: abrir al hacer clic en imágenes de la tabla
+    // Modal para imágenes: Abrir imagen en pantalla completa al hacer clic
     document.addEventListener('click', function(e) {
       if (e.target && e.target.classList.contains('disorder-image')) {
         var modal = document.getElementById('imageModal');
@@ -540,7 +540,7 @@
       document.getElementById('imageModal').style.display = 'none';
     });
     document.getElementById('imageModal').addEventListener('click', function(e) {
-      if (e.target === this) {
+      if(e.target === this) {
         this.style.display = 'none';
       }
     });
