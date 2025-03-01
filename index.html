@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -63,9 +63,8 @@
       padding: 15px;
       color: #fff;
     }
-    /* El contenido interno se mantiene en el HTML pero no se muestra (se usará en el modal) */
     .panel-content {
-      display: none;
+      display: none; /* Se oculta en el panel ya que se mostrará en modal */
       padding: 15px;
       text-align: left;
     }
@@ -106,7 +105,7 @@
     .accordion-content td {
       background-color: #f1f1f1;
     }
-    /* Filas interactivas en la tabla */
+    /* Estilos para filas interactivas */
     #trastornosTable tbody tr {
       cursor: pointer;
       transition: opacity 0.3s ease;
@@ -165,8 +164,8 @@
     footer img {
       max-width: 150px;
     }
-    /* Modal para mostrar el contenido de los paneles en pantalla completa */
-    #panelModal {
+    /* Modal para visualizar paneles a pantalla completa (separado de imágenes) */
+    .panel-modal {
       display: none;
       position: fixed;
       z-index: 9999;
@@ -177,7 +176,7 @@
       overflow: auto;
       background-color: rgba(0,0,0,0.8);
     }
-    #panelModal .modal-panel-content {
+    .panel-modal .modal-panel-content {
       background: linear-gradient(135deg, #FFB6C1, #ADD8E6, #CCFF90);
       margin: 5% auto;
       padding: 20px;
@@ -192,7 +191,7 @@
       from { transform: translateY(-50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    #panelModal .close {
+    .panel-modal .close {
       position: absolute;
       top: 15px;
       right: 35px;
@@ -201,12 +200,12 @@
       font-weight: bold;
       cursor: pointer;
     }
-    #panelModal .close:hover,
-    #panelModal .close:focus {
+    .panel-modal .close:hover,
+    .panel-modal .close:focus {
       color: #bbb;
       text-decoration: none;
     }
-    /* Modal para imágenes en pantalla completa */
+    /* Modal para visualizar imágenes en pantalla completa */
     .modal {
       display: none;
       position: fixed;
@@ -226,8 +225,8 @@
       animation: zoom 0.6s;
     }
     @keyframes zoom {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
+      from {transform: scale(0);}
+      to {transform: scale(1);}
     }
     .close {
       position: absolute;
@@ -242,9 +241,45 @@
       color: #bbb;
       text-decoration: none;
     }
-    /* Tabla-Acordeón: icono interactivo en la primera celda */
-    .accordion-indicator {
-      font-weight: bold;
+    /* Estilos para la sección "Comprobamos Juntos" */
+    .comprobamos {
+      margin: 20px auto;
+      width: 90%;
+      background: linear-gradient(145deg, #fff, #e6e6e6);
+      border-radius: 15px;
+      box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+      padding: 20px;
+      transform: perspective(500px) rotateX(5deg);
+    }
+    .comprobamos h2 {
+      color: #FF4081;
+      margin-bottom: 15px;
+    }
+    .pregunta {
+      margin-bottom: 20px;
+    }
+    .pregunta p {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .pregunta button {
+      padding: 10px 20px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #FFB6C1;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+    .pregunta button:hover {
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+    .feedback {
+      margin-top: 10px;
+      font-style: italic;
+      color: #555;
     }
   </style>
 </head>
@@ -268,7 +303,7 @@
       <div class="panel-header">
         <h2>0-1 Año - ¡Bienvenidas familias de bebés!</h2>
       </div>
-      <img src="https://github.com/CursoAvampace/APSI/blob/main/bebe_en_guarderia.jpg?raw=true" alt="Bebé en guardería">
+      <img src="https://raw.githubusercontent.com/CursoAvampace/APSI/main/bebe_en_guarderia.jpg" alt="Bebé en guardería">
       <div class="panel-content">
         <h3>Productos de Higiene para Traer:</h3>
         <ul>
@@ -308,7 +343,7 @@
       <div class="panel-header">
         <h2>1-2 Años - ¡Exploradores en Acción!</h2>
       </div>
-      <img src="https://github.com/CursoAvampace/APSI/blob/main/ni%C3%B1o_explorando.jpg?raw=true" alt="Niño explorando">
+      <img src="https://raw.githubusercontent.com/CursoAvampace/APSI/main/ni%C3%B1o_explorando.jpg" alt="Niño explorando">
       <div class="panel-content">
         <h3>Productos de Higiene para Traer:</h3>
         <ul>
@@ -345,7 +380,7 @@
       <div class="panel-header">
         <h2>2-3 Años - ¡Pequeños Mayores!</h2>
       </div>
-      <img src="https://github.com/CursoAvampace/APSI/blob/main/ni%C3%B1o_activo.jpg?raw=true" alt="Niño activo">
+      <img src="https://raw.githubusercontent.com/CursoAvampace/APSI/main/ni%C3%B1o_activo.jpg" alt="Niño activo">
       <div class="panel-content">
         <h3>Productos de Higiene para Traer:</h3>
         <ul>
@@ -376,7 +411,7 @@
     </div>
   </section>
   
-  <!-- Tabla Acordeón -->
+  <!-- Tabla Acordeón Actualizada -->
   <section class="tabla-interactiva">
     <h2 style="color:#FF5722">Alteraciones y Trastornos Relacionados con la Higiene</h2>
     <table id="trastornosTable">
@@ -391,36 +426,160 @@
       <tbody>
         <tr data-trastorno="Eritema del pañal" style="background-color: #FFE4E1;">
           <td>Eritema del pañal</td>
-          <td>Irritación en la piel del bebé</td>
-          <td>Uso de cremas protectoras</td>
-          <td>Mantener la piel seca</td>
+          <td>Irritación, enrojecimiento y descamación en la zona del pañal.</td>
+          <td>
+            <ul>
+              <li>Uso de pañales absorbentes.</li>
+              <li>Cambiar pañales con frecuencia.</li>
+              <li>Aplicar crema protectora con óxido de zinc.</li>
+              <li>Evitar toallitas con alcohol o perfumes.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Mantener la zona limpia y seca.</li>
+              <li>Consultar al pediatra si no mejora.</li>
+            </ul>
+          </td>
         </tr>
-        <tr data-trastorno="Pediculosis" style="background-color: #E0FFE0;">
-          <td>Pediculosis</td>
-          <td>Infestación de piojos</td>
-          <td>Revisión frecuente del cabello</td>
-          <td>Tratamientos específicos</td>
-        </tr>
-        <tr data-trastorno="Caries" style="background-color: #FFFFE0;">
-          <td>Caries</td>
-          <td>Desgaste dental</td>
-          <td>Higiene bucal y reducción de azúcar</td>
-          <td>Tratamientos dentales</td>
-        </tr>
-        <tr data-trastorno="Onicofagia" style="background-color: #E0FFFF;">
-          <td>Onicofagia</td>
-          <td>Morderse las uñas</td>
-          <td>Educación y refuerzo positivo</td>
-          <td>Técnicas conductuales</td>
+        <tr data-trastorno="Muguet" style="background-color: #FFF0F0;">
+          <td>Muguet</td>
+          <td>Manchas blancas cremosas en lengua, encías y mejillas, con dificultad para alimentarse.</td>
+          <td>
+            <ul>
+              <li>Esterilizar biberones y chupetes.</li>
+              <li>Mantener una buena higiene del pezón.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Antifúngicos orales (bajo supervisión médica).</li>
+              <li>Tratar los pezones si hay infección.</li>
+            </ul>
+          </td>
         </tr>
         <tr data-trastorno="Helmintiasis" style="background-color: #FFF0E5;">
           <td>Helmintiasis</td>
-          <td>Infección por parásitos</td>
-          <td>Lavado de manos y alimentos</td>
-          <td>Desparasitación con medicación</td>
+          <td>Infección por parásitos, con síntomas digestivos y anemia.</td>
+          <td>
+            <ul>
+              <li>Lavado de manos frecuente.</li>
+              <li>Cocinar bien las carnes.</li>
+              <li>Lavar frutas y verduras.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Antiparasitarios orales prescritos.</li>
+              <li>Lavado de ropa de cama y ropa interior con agua caliente.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr data-trastorno="Caries" style="background-color: #FFFFE0;">
+          <td>Caries</td>
+          <td>Manchas blancas o marrones, sensibilidad dental y dolor.</td>
+          <td>
+            <ul>
+              <li>Cepillado después de cada comida.</li>
+              <li>Uso de pasta dental con flúor.</li>
+              <li>Limitar azúcares y bebidas ácidas.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Empastes, endodoncias o extracciones según necesidad.</li>
+              <li>Supervisión en la higiene bucal.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr data-trastorno="Pediculosis" style="background-color: #E0FFE0;">
+          <td>Pediculosis</td>
+          <td>Picazón intensa, liendres y piojos en el cabello.</td>
+          <td>
+            <ul>
+              <li>Revisión regular del cabello.</li>
+              <li>Evitar compartir objetos personales.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Lociones y champús pediculicidas.</li>
+              <li>Eliminación manual de liendres.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr data-trastorno="Onicofagia" style="background-color: #E0FFFF;">
+          <td>Onicofagia</td>
+          <td>Hábito de morderse las uñas, uñas cortas o deformadas y cutículas dañadas.</td>
+          <td>
+            <ul>
+              <li>Identificar causas y ofrecer alternativas.</li>
+              <li>Uso de esmaltes de sabor amargo.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Tratamiento psicológico en casos graves.</li>
+              <li>Cremas hidratantes y fortalecedoras para las uñas.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr data-trastorno="Enuresis" style="background-color: #F0FFF0;">
+          <td>Enuresis</td>
+          <td>Micción involuntaria durante el sueño en niños mayores de 5 años.</td>
+          <td>
+            <ul>
+              <li>Restringir líquidos antes de dormir.</li>
+              <li>Establecer una rutina de micción.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Uso de alarmas de enuresis y, en algunos casos, tratamiento psicológico.</li>
+            </ul>
+          </td>
+        </tr>
+        <tr data-trastorno="Encopresis" style="background-color: #FFF8DC;">
+          <td>Encopresis</td>
+          <td>Defecación involuntaria, generalmente asociada a estreñimiento crónico.</td>
+          <td>
+            <ul>
+              <li>Dieta rica en fibra e ingesta adecuada de líquidos.</li>
+              <li>Rutina regular para ir al baño.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Uso de enemas o laxantes y tratamiento psicológico.</li>
+            </ul>
+          </td>
         </tr>
       </tbody>
     </table>
+  </section>
+  
+  <!-- Sección interactiva "Comprobamos Juntos" -->
+  <section class="comprobamos">
+    <h2>Comprobamos Juntos</h2>
+    <div class="pregunta">
+      <p>¿Reviso la cabeza de mi hijo diariamente para detectar piojos?</p>
+      <button class="respuesta" data-correct="si">Sí</button>
+      <button class="respuesta" data-correct="no">No</button>
+      <div class="feedback"></div>
+    </div>
+    <div class="pregunta">
+      <p>¿Fomento el lavado frecuente de manos en mi hijo/a?</p>
+      <button class="respuesta" data-correct="si">Sí</button>
+      <button class="respuesta" data-correct="no">No</button>
+      <div class="feedback"></div>
+    </div>
+    <div class="pregunta">
+      <p>¿Conozco la técnica correcta de cepillado de dientes para enseñársela a mi hijo?</p>
+      <button class="respuesta" data-correct="si">Sí</button>
+      <button class="respuesta" data-correct="no">No</button>
+      <div class="feedback"></div>
+    </div>
+    <!-- Se puede agregar más preguntas de comprobación de higiene aquí -->
   </section>
   
   <!-- Sección del video con título animado -->
@@ -435,7 +594,7 @@
   <footer>
     <p id="fecha"></p>
     <p>Autor: Ana Maria da Cunha Goncalves</p>
-    <img src="https://github.com/CursoAvampace/APSI/blob/main/logo%20instituto.png?raw=true" alt="Logo IES Avampace">
+    <img src="https://raw.githubusercontent.com/CursoAvampace/APSI/main/logo%20instituto.png" alt="Logo IES Avampace">
   </footer>
   
   <!-- Modal para visualizar imágenes en pantalla completa -->
@@ -444,19 +603,20 @@
     <img class="modal-content" id="modalImage">
   </div>
   
-  <!-- Modal para mostrar el contenido de los paneles en pantalla completa -->
-  <div id="panelModal" class="modal">
+  <!-- Modal para mostrar el contenido de los paneles a pantalla completa -->
+  <div id="panelModal" class="panel-modal">
     <span class="close" id="panelModalClose">&times;</span>
     <div class="modal-panel-content" id="modalPanelContent"></div>
   </div>
   
   <script>
-    // Actualizar la fecha en el pie de página
+    // Actualizar fecha en el pie de página
     document.getElementById('fecha').innerText = 'Fecha: ' + new Date().toLocaleDateString('es-ES');
 
-    // Abrir el contenido de cada panel en un modal
+    // Evento para abrir el contenido del panel en modal al hacer clic en cualquier parte del panel
     document.querySelectorAll('.panel').forEach(function(panel) {
-      panel.addEventListener('click', function() {
+      panel.addEventListener('click', function(e) {
+        if(e.target.closest('.accordion-indicator')) return;
         var content = panel.querySelector('.panel-content');
         if(content) {
           var modal = document.getElementById('panelModal');
@@ -467,19 +627,20 @@
       });
     });
     
-    // Cerrar el modal de panel al hacer clic en la "X" o fuera del contenido
+    // Modal para paneles: cerrar al hacer clic en la "X" o fuera del contenido
     document.getElementById('panelModalClose').addEventListener('click', function() {
       document.getElementById('panelModal').style.display = 'none';
     });
     document.getElementById('panelModal').addEventListener('click', function(e) {
-      if(e.target === this) {
+      if (e.target === this) {
         this.style.display = 'none';
       }
     });
     
-    // Tabla-Acordeón: Agregar icono interactivo a cada fila y su comportamiento
+    // Tabla-Acordeón: Agregar icono interactivo y comportamiento de expansión
     document.addEventListener('DOMContentLoaded', function() {
       var tbody = document.querySelector('#trastornosTable tbody');
+      
       tbody.querySelectorAll('tr:not(.accordion-content)').forEach(function(row) {
         var firstCell = row.querySelector('td');
         var indicator = document.createElement('span');
@@ -496,6 +657,7 @@
           target = target.parentElement;
         }
         if (!target || target.classList.contains('accordion-content')) return;
+        
         if (target.nextElementSibling && target.nextElementSibling.classList.contains('accordion-content')) {
           target.nextElementSibling.remove();
           var indicator = target.querySelector('.accordion-indicator');
@@ -524,7 +686,7 @@
       });
     });
     
-    // Modal para imágenes: Abrir imagen en pantalla completa
+    // Modal para imágenes: abrir al hacer clic en imágenes de la tabla
     document.addEventListener('click', function(e) {
       if (e.target && e.target.classList.contains('disorder-image')) {
         var modal = document.getElementById('imageModal');
@@ -537,7 +699,7 @@
       document.getElementById('imageModal').style.display = 'none';
     });
     document.getElementById('imageModal').addEventListener('click', function(e) {
-      if(e.target === this) {
+      if (e.target === this) {
         this.style.display = 'none';
       }
     });
@@ -582,42 +744,78 @@
       }
     })();
     
-    // Función que retorna la información de cada trastorno
+    // Función que retorna la información de cada trastorno, actualizando las imágenes de Muguet, Enuresis y Encopresis
     function getDataForTrastorno(trastorno) {
       var info = {
         'Eritema del pañal': {
-          imagen: 'https://github.com/CursoAvampace/APSI/blob/main/eritema_pa%C3%B1al.jpg?raw=true',
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/eritema_pa%C3%B1al.jpg',
           caracteristicas: 'Irritación en la piel del bebé, enrojecimiento y sensibilidad.',
           prevencion: 'Aplicar cremas protectoras y cambiar pañales con frecuencia.',
           tratamiento: 'Mantener la zona limpia y seca, utilizando productos recomendados.'
         },
-        'Pediculosis': {
-          imagen: 'https://github.com/CursoAvampace/APSI/blob/main/pediculosis.jpg?raw=true',
-          caracteristicas: 'Infestación de piojos en el cabello, causando picazón y molestias.',
-          prevencion: 'Revisar el cabello regularmente y mantener buena higiene.',
-          tratamiento: 'Aplicar tratamientos específicos y peinar cuidadosamente.'
+        'Muguet': {
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/muget.jpg',
+          caracteristicas: 'Manchas blancas cremosas en lengua, encías y mejillas, con dificultad para alimentarse.',
+          prevencion: 'Esterilizar biberones y chupetes, y mantener una buena higiene del pezón.',
+          tratamiento: 'Antifúngicos orales (bajo supervisión médica) y tratamiento en los pezones si hay infección.'
+        },
+        'Helmintiasis': {
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/helmintiasis.jpg',
+          caracteristicas: 'Infección por parásitos, con síntomas digestivos y anemia.',
+          prevencion: 'Lavado de manos y alimentos, y mantener ambientes limpios.',
+          tratamiento: 'Desparasitación con medicación adecuada según indicación médica.'
         },
         'Caries': {
-          imagen: 'https://github.com/CursoAvampace/APSI/blob/main/caries.jpg?raw=true',
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/caries.jpg',
           caracteristicas: 'Desgaste dental, dolor y sensibilidad en los dientes.',
           prevencion: 'Mantener una higiene bucal adecuada y limitar el consumo de azúcar.',
           tratamiento: 'Consultar al odontopediatra para restauraciones y tratamientos.'
         },
+        'Pediculosis': {
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/pediculosis.jpg',
+          caracteristicas: 'Infestación de piojos en el cabello, causando picazón y molestias.',
+          prevencion: 'Revisar el cabello regularmente y mantener buena higiene.',
+          tratamiento: 'Aplicar tratamientos específicos y peinar cuidadosamente.'
+        },
         'Onicofagia': {
-          imagen: 'https://github.com/CursoAvampace/APSI/blob/main/onifocagia.jpg?raw=true',
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/onifocagia.jpg',
           caracteristicas: 'Hábito de morderse las uñas, con riesgo de infecciones.',
           prevencion: 'Fomentar hábitos saludables y ofrecer distracciones.',
           tratamiento: 'Técnicas conductuales y apoyo si es necesario.'
         },
-        'Helmintiasis': {
-          imagen: 'https://github.com/CursoAvampace/APSI/blob/main/helmintiasis.jpg?raw=true',
-          caracteristicas: 'Infección por parásitos, con síntomas digestivos y anemia.',
-          prevencion: 'Lavado de manos y alimentos, y mantener ambientes limpios.',
-          tratamiento: 'Desparasitación con medicación adecuada según indicación médica.'
+        'Enuresis': {
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/enuresis.jpg',
+          caracteristicas: 'Micción involuntaria durante el sueño en niños mayores de 5 años.',
+          prevencion: 'Restringir líquidos antes de dormir y establecer una rutina de micción.',
+          tratamiento: 'Uso de alarmas de enuresis y, en algunos casos, tratamiento psicológico.'
+        },
+        'Encopresis': {
+          imagen: 'https://raw.githubusercontent.com/CursoAvampace/APSI/main/encopresis.jpg',
+          caracteristicas: 'Defecación involuntaria, generalmente asociada a estreñimiento crónico.',
+          prevencion: 'Dieta rica en fibra, ingesta adecuada de líquidos y una rutina regular para ir al baño.',
+          tratamiento: 'Uso de enemas o laxantes y tratamiento psicológico.'
         }
       };
       return info[trastorno];
     }
+    
+    // Lógica para la sección "Comprobamos Juntos"
+    document.querySelectorAll('.pregunta').forEach(function(div) {
+      var buttons = div.querySelectorAll('button.respuesta');
+      var feedback = div.querySelector('.feedback');
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var respuesta = btn.getAttribute('data-correct');
+          if (respuesta === 'si') {
+            feedback.textContent = '¡Bien hecho! Continúa con esta práctica.';
+            feedback.style.color = '#388E3C';
+          } else {
+            feedback.textContent = 'Se recomienda realizar esta práctica diariamente para asegurar la correcta higiene.';
+            feedback.style.color = '#D32F2F';
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
